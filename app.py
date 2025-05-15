@@ -9,6 +9,9 @@ app = Flask(__name__)
 app.config['UPLOAD_FOLDER'] = 'uploads'
 
 # Tesseract path
+@app.route('/healthz')
+def health_check():
+    return 'OK', 200
 
 
 def preprocess_image(pil_image):
