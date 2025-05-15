@@ -4,5 +4,9 @@ services:
     env: python
     buildCommand: |
       apt-get update && apt-get install -y tesseract-ocr
-      pip install -r requirements.txt
+      pip install --no-cache-dir -r requirements.txt
+      mkdir -p uploads
     startCommand: gunicorn app:app
+    envVars:
+      - key: TESSERACT_PATH
+        value: /usr/bin/tesseract
