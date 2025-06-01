@@ -10,7 +10,12 @@ app = Flask(__name__)
 app.config['UPLOAD_FOLDER'] = 'uploads'
 
 import platform
-if platform.system() == "Windows":
+# Set Tesseract command path from environment variable if available,
+# otherwise fall back to Windows default or rely on PATH for other systems.
+tesseract_path_env = os.environ.get("TESSERACT_PATH")
+if tesseract_path_env:
+    pytesseract.pytesseract.tesseract_cmd = tesseract_path_env
+elif platform.system() == "Windows":
     pytesseract.pytesseract.tesseract_cmd = r"C:/Program Files/Tesseract-OCR/tesseract.exe"
 
 
